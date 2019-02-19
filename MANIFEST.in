@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include seef *.css
+recursive-include seef *.csv
+recursive-include seef *.html
+recursive-include seef *.ico
+recursive-include seef *.js
+recursive-include seef *.json
+recursive-include seef *.md
+recursive-include seef *.png
+recursive-include seef *.py
+recursive-include seef *.svg
+recursive-include seef *.txt
+recursive-exclude seef *.pyc
