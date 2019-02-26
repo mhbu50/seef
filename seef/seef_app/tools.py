@@ -52,3 +52,19 @@ def get_material_request(source_name, target_doc=None, ignore_permissions=False)
 	}, target_doc, postprocess, ignore_permissions=ignore_permissions)
 
 	return doclist
+
+def boot_session(bootinfo):
+	bootinfo["consoleerp"] = {
+		"expiring_documents": [1,2,3,4,5,6]
+	}
+
+	# startup messages
+
+	# keep existing messages
+	if "messages" in bootinfo and not isinstance(bootinfo["messages"], list):
+		bootinfo["messages"] = [bootinfo["messages"]]
+	bootinfo["messages"] = bootinfo.get("messages", [])
+	companies = [d['name'] for d in frappe.get_list("Company")]
+	# bootinfo["messages"].append(companies)
+
+	return bootinfo

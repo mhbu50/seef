@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from . import __version__ as app_version
 
 app_name = "seef"
-app_title = "seef App"
+app_title = "Seef"
 app_publisher = "Accurate Systems"
 app_description = "seef customization"
 app_icon = "octicon octicon-file-directory"
@@ -16,7 +16,7 @@ app_license = "MIT"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/seef/css/seef.css"
-# app_include_js = "/assets/seef/js/seef.js"
+app_include_js = "/assets/js/seef.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/seef/css/seef.css"
@@ -30,7 +30,7 @@ doctype_js = {"Journal Entry" : "public/js/journal_entry.js"}
 # doctype_list_js = {"Purchase Invoice" : "public/js/purchase_invoice.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
-
+boot_session = "seef.seef_app.tools.boot_session"
 # Home Pages
 # ----------
 
@@ -119,4 +119,3 @@ doctype_js = {"Journal Entry" : "public/js/journal_entry.js"}
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "seef.event.get_events"
 # }
-
