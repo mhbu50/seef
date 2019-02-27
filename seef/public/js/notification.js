@@ -40,30 +40,35 @@ $(document).on('app_ready', function() {
 
     // show only once
     //frappe.boot.consoleerp.expiring_documents = null;
-    var dialog = new frappe.ui.Dialog({
-      title: __("Set Company"),
-      fields: [
-        {
-          "fieldtype": "Link",
-          "label": __("Company"),
-          "fieldname": "company",
-          "options": "Company",
-          "reqd": 1
-        }
-      ],primary_action: function() {
-						dialog.hide();
-            console.log("gggggg");
-						// return frappe.call({
-						// 	method: "erpnext.projects.doctype.task.task.add_multiple_tasks",
-						// 	args: {
-						// 		data: dialog.get_values()["multiple_tasks"],
-						// 		parent: node.data.value
-						// 	},
-						// 	callback: function() { }
-						// });
-					},
-					primary_action_label: __('Save')
-    });
-    dialog.show();
+    if (in_list(frappe.user_roles,'Accounts User', 'Accounts Manager')) {
+      var dialog = new frappe.ui.Dialog({
+        title: __("Set Company"),
+        fields: [
+          {
+            "fieldtype": "Link",
+            "label": __("Company"),
+            "fieldname": "company",
+            "options": "Company",
+            "reqd": 1
+          }
+        ],primary_action: function() {
+          var data = dialog.get_values();
+  						dialog.hide();
+              console.log("gggggg");
+  						return frappe.call({
+  							method: "frappe.client.set_value",
+  							args: {
+  								doctype: "User Permission",
+  								name: {'user':frappe.session.user,'allow':'Company'},
+                  fieldname: 'for_value',
+                  value: data.company
+  							},
+  							callback: function() { }
+  						});
+  					},
+  					primary_action_label: __('Save')
+      });
+      dialog.show();
+    }
   }
 });
