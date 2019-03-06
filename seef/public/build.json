@@ -1,5 +1,6 @@
 {
-  "js/seef.js":[
-    "public/js/notification.js"
-  ]
+    "js/seef.js": [
+        "public/js/notification.js",
+        "public/js/tree_extra.js"
+    ]
 }

@@ -1,74 +1,51 @@
-$(document).on('app_ready', function() {
-  if (!frappe.boot.consoleerp || frappe.get_route()[0] != "")
-    return;
+frappe.provide("accurate.ui");
 
-  if (frappe.boot.consoleerp.expiring_documents && frappe.boot.consoleerp.expiring_documents.length > 0) {
-    // var rows = frappe.boot.consoleerp.expiring_documents.reduce(function(str, obj) {
-    //   return str +
-    //     "<tr>" +
-    //     "<td>" + obj + "</td>" +
-    //     "<td>" + obj.type + "</td>" +
-    //     "<td>" + obj.expiry_date + "</td>" +
-    //     "<td>" +
-    //     "<a data-parent='" + obj.parent + "' data-parenttype='" + obj.parenttype + "'>" +
-    //     obj.parenttype +
-    //     "-" +
-    //     obj.parent +
-    //     "</a>" +
-    //     "</td>" +
-    //     "</tr>";
-    // }, "");
-    // var $wrapper = frappe.msgprint("<h3>Expiring Documents</h3>" +
-    //   "<br>The following documents will expire soon." +
-    //   "<table class='table table-striped table-hover'>" +
-    //   "<thead>" +
-    //   "<tr>" +
-    //   "<th>" + __("Doc No") + "</th>" +
-    //   "<th>" + __("Type") + "</th>" +
-    //   "<th>" + __("Expiry Date") + "</th>" +
-    //   "<th>" + __("Parent") + "</th>" +
-    //   "</tr>" +
-    //   "</thead>" +
-    //   "<tbody>" +
-    //   rows +
-    //   "</tbody>" +
-    //   "</table>" +
-    //   "<hr>", "Console ERP Notifications").$wrapper;
-    // $wrapper.find("a").on("click", function() {
-    //   frappe.set_route("Form", $(this).data("parenttype"), $(this).data("parent"));
-    // })
-
-    // show only once
-    //frappe.boot.consoleerp.expiring_documents = null;
-    if (in_list(frappe.user_roles,'Accounts User', 'Accounts Manager')) {
-      var dialog = new frappe.ui.Dialog({
+accurate.ui.set_company = function() {
+    var dialog = new frappe.ui.Dialog({
         title: __("Set Company"),
-        fields: [
-          {
+        fields: [{
             "fieldtype": "Link",
             "label": __("Company"),
             "fieldname": "company",
             "options": "Company",
             "reqd": 1
-          }
-        ],primary_action: function() {
-          var data = dialog.get_values();
-  						dialog.hide();
-              console.log("gggggg");
-  						return frappe.call({
-  							method: "frappe.client.set_value",
-  							args: {
-  								doctype: "User Permission",
-  								name: {'user':frappe.session.user,'allow':'Company'},
-                  fieldname: 'for_value',
-                  value: data.company
-  							},
-  							callback: function() { }
-  						});
-  					},
-  					primary_action_label: __('Save')
-      });
-      dialog.show();
+        }],
+        primary_action: function() {
+            var data = dialog.get_values();
+            dialog.hide();
+            frappe.db.get_value("User Permission", { 'user': frappe.session.user, 'allow': 'Company' }, 'name', function(r) {
+                frappe.db.set_value("User Permission", r.name, "for_value", data.company, function(r) {
+                    console.log('befor reload page');
+                    //set expires cookie
+                    var date = new Date();
+                    date.setTime(date.getTime() + (1 * 24 * 60 * 60 * 1000));
+                    var expires = "; expires=" + date.toUTCString();
+                    document.cookie = "company" + "=" + (data.company || "") + expires + "; path=/";
+                    window.location.reload();
+                });
+            })
+        },
+        primary_action_label: __('Save')
+    });
+    dialog.show();
+}
+
+$(document).on('app_ready', function() {
+
+    setTimeout(function() {
+        frappe.app.logout = (function(_super) {
+            return function() {
+                document.cookie = 'company=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                return _super.apply(this, arguments);
+            };
+        })(frappe.app.logout);
+    }, 3000);
+    $('<li><a href="#" onclick="accurate.ui.set_company();return false;"> ' + __("Set Company") + '</a></li>').insertAfter($('.navbar-set-desktop-icons').next());
+
+    if (in_list(frappe.user_roles, 'Accounts User', 'Accounts Manager') &&
+        !in_list(frappe.user_roles, 'System Manager') &&
+        frappe.get_cookie("company") == undefined) {
+        accurate.ui.set_company();
     }
-  }
+
 });
