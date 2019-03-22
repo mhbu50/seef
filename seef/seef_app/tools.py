@@ -122,10 +122,12 @@ def intersection(lst1, lst2):
 
 @frappe.whitelist()
 def get_avalabil_company():
+	select_company = []
     	all_company = frappe.get_all("Company", fields=["name"])
 	all_company = [d['name'] for d in all_company]
     	permission_company = frappe.get_all(
             "User Permission", fields=["for_value"], filters={"allow": "Company"})
 	permission_company = [d['for_value'] for d in permission_company]
-    	return intersection(all_company, permission_company)
+	select_company = intersection(all_company, permission_company)
+    	return select_company
 	# return [d['name'] for d in all_company]
