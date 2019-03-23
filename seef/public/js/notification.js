@@ -1,13 +1,20 @@
 frappe.provide("accurate.ui");
 
 accurate.ui.set_company = function() {
+    const {
+        message: { batch_no_details, uom_details, exchange_rates } = {},
+      }  = await frappe.call({ method: 'seef.seef_app.tools.get_avalabil_company' });
+    if (message) {
+        console.log("me",message);
+        
+    }
     var dialog = new frappe.ui.Dialog({
         title: __("Set Company"),
         fields: [{
-            "fieldtype": "Link",
+            "fieldtype": "Select",
             "label": __("Company"),
             "fieldname": "company",
-            "options": "Company",
+            "options": message,
             "reqd": 1
         }],
         primary_action: function() {
