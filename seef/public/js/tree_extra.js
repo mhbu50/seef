@@ -1,6 +1,6 @@
-class TreeView extends frappe.views.TreeView {
+frappe.views.TreeView = frappe.views.TreeView.extend({
     new_node() {
-        super.new_node();
+        this._super();
         var tree_account_name = cur_tree.get_selected_node().label;
         setTimeout(function() {
                 frappe.call({
@@ -27,8 +27,6 @@ class TreeView extends frappe.views.TreeView {
                     });
                 })
             },
-            1000);
+            800);
     }
-}
-
-frappe.views.TreeView = TreeView;
+})
