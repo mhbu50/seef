@@ -1,6 +1,6 @@
 frappe.provide("accurate.ui");
 
-accurate.ui.set_company = function() {
+accurate.ui.set_company = async function() {
     const {
         message: { batch_no_details, uom_details, exchange_rates } = {},
       }  = await frappe.call({ method: 'seef.seef_app.tools.get_avalabil_company' });
