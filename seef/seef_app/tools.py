@@ -110,7 +110,7 @@ def get_new_account_number(account_name, is_group=1):
 				leaf_seed = (int(last_acct_num) % 10)+1
 				new_account_number = str(account_number)+str("{0:0>2}".format(leaf_seed))
 		else:
-    			leaf_seed = 1
+			leaf_seed = 1
 			new_account_number = str(account_number)+str("{0:0>2}".format(leaf_seed))
 		frappe.errprint(new_account_number)
 		return new_account_number
@@ -123,11 +123,11 @@ def intersection(lst1, lst2):
 @frappe.whitelist()
 def get_avalabil_company():
 	select_company = []
-    	all_company = frappe.get_all("Company", fields=["name"])
+	all_company = frappe.get_all("Company", fields=["name"])
 	all_company = [d['name'] for d in all_company]
-    	permission_company = frappe.get_all(
+	permission_company = frappe.get_all(
             "User Permission", fields=["for_value"], filters={"allow": "Company"})
 	permission_company = [d['for_value'] for d in permission_company]
 	select_company = intersection(all_company, permission_company)
-    	return select_company
+	return select_company
 	# return [d['name'] for d in all_company]
