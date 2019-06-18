@@ -16,6 +16,8 @@
    "description": null, 
    "docstatus": 0, 
    "dt": "Purchase Invoice Item", 
+   "fetch_from": null, 
+   "fetch_if_empty": 0, 
    "fieldname": "total_amount", 
    "fieldtype": "Currency", 
    "hidden": 1, 
@@ -45,6 +47,7 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
+   "translatable": 0, 
    "unique": 0, 
    "width": null
   }, 
@@ -64,6 +67,8 @@
    "description": null, 
    "docstatus": 0, 
    "dt": "Purchase Invoice Item", 
+   "fetch_from": null, 
+   "fetch_if_empty": 0, 
    "fieldname": "tax_amount", 
    "fieldtype": "Currency", 
    "hidden": 1, 
@@ -93,6 +98,7 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
+   "translatable": 0, 
    "unique": 0, 
    "width": null
   }, 
@@ -112,6 +118,8 @@
    "description": null, 
    "docstatus": 0, 
    "dt": "Purchase Invoice Item", 
+   "fetch_from": null, 
+   "fetch_if_empty": 0, 
    "fieldname": "tax_rate", 
    "fieldtype": "Float", 
    "hidden": 1, 
@@ -141,6 +149,7 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
+   "translatable": 0, 
    "unique": 0, 
    "width": null
   }, 
@@ -160,6 +169,8 @@
    "description": null, 
    "docstatus": 0, 
    "dt": "Purchase Invoice Item", 
+   "fetch_from": null, 
+   "fetch_if_empty": 0, 
    "fieldname": "tax_code", 
    "fieldtype": "Read Only", 
    "hidden": 0, 
@@ -189,6 +200,7 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
+   "translatable": 0, 
    "unique": 0, 
    "width": null
   }
