@@ -26,16 +26,16 @@ app_include_js = "/assets/js/seef.js"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-doctype_js = {"Journal Entry" : "public/js/journal_entry.js"}
+doctype_js = {"Journal Entry": "public/js/journal_entry.js",
+              "Stock Entry": "public/js/stock_entry.js"}
 # doctype_list_js = {"Purchase Invoice" : "public/js/purchase_invoice.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
-boot_session = "seef.seef_app.tools.boot_session"
 # Home Pages
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
+home_page = "login"
 
 # website user home page (by Role)
 # role_home_page = {
