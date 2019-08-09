@@ -62,6 +62,16 @@ def create_charts(company, chart_template=None, existing_company=None, custom_ch
 		rebuild_tree("Account", "parent_account")
 		frappe.local.flags.ignore_on_update = False
 
+def identify_is_group(child):
+	if child.get("is_group"):
+		is_group = child.get("is_group")
+	elif len(set(child.keys()) - set(["account_type", "root_type", "is_group", "tax_rate", "account_number"])):
+		is_group = 1
+	else:
+		is_group = 0
+
+	return is_group
+	
 @frappe.whitelist()
 def build_tree_from_json(chart_template, chart_data=None):
 	''' get chart template from its folder and parse the json to be rendered as tree '''
