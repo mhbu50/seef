@@ -6,6 +6,7 @@ __version__ = '0.0.5'
 
 import erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts
 from frappe.core.doctype.file.file import File
+from frappe.utils import get_site_path
 
 
 def create_charts(company, chart_template=None, existing_company=None, custom_chart=None):
@@ -87,7 +88,7 @@ def build_tree_from_json(chart_template, chart_data=None):
 
 	_import_accounts(chart, None)
 	return accounts
-	
+
 def get_files_path(*path, **kwargs):
 	return get_site_path("private" if kwargs.get("is_private") else "public", "files", *path)
 
