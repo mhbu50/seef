@@ -10,7 +10,32 @@ from frappe.utils import get_site_path, cstr
 from unidecode import unidecode
 from frappe.utils.nestedset import rebuild_tree
 
+def get_chart(chart_template, existing_company=None):
+	chart = {}
+	if existing_company:
+		return get_account_tree_from_existing_company(existing_company)
 
+	elif chart_template == "Standard":
+		from erpnext.accounts.doctype.account.chart_of_accounts.verified import standard_chart_of_accounts
+		return standard_chart_of_accounts.get()
+	elif chart_template == "Standard with Numbers":
+		from erpnext.accounts.doctype.account.chart_of_accounts.verified \
+			import standard_chart_of_accounts_with_account_number
+		return standard_chart_of_accounts_with_account_number.get()
+	else:
+		folders = ("verified",)
+		if frappe.local.flags.allow_unverified_charts:
+			folders = ("verified", "unverified")
+		for folder in folders:
+			path = os.path.join(os.path.dirname(__file__), folder)
+			for fname in os.listdir(path):
+				fname = frappe.as_unicode(fname)
+				if fname.endswith(".json"):
+					with open(os.path.join(path, fname), "r") as f:
+						chart = f.read()
+						if chart and json.loads(chart).get("name") == chart_template:
+							return json.loads(chart).get("tree")
+							
 def create_charts(company, chart_template=None, existing_company=None, custom_chart=None):
 	chart = custom_chart or get_chart(chart_template, existing_company)
 	if chart:
