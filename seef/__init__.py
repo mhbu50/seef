@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import frappe
 __version__ = '0.0.5'
 
-
+from six import iteritems
 import erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts
 from frappe.core.doctype.file.file import File
 from frappe.utils import get_site_path
