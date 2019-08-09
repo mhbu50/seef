@@ -6,7 +6,7 @@ __version__ = '0.0.5'
 from six import iteritems
 import erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts
 from frappe.core.doctype.file.file import File
-from frappe.utils import get_site_path
+from frappe.utils import get_site_path, cstr
 
 
 def create_charts(company, chart_template=None, existing_company=None, custom_chart=None):
@@ -71,7 +71,7 @@ def identify_is_group(child):
 		is_group = 0
 
 	return is_group
-	
+
 @frappe.whitelist()
 def build_tree_from_json(chart_template, chart_data=None):
 	''' get chart template from its folder and parse the json to be rendered as tree '''
