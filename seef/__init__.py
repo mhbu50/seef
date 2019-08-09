@@ -72,6 +72,19 @@ def identify_is_group(child):
 
 	return is_group
 
+def add_suffix_if_duplicate(account_name, account_number, accounts):
+	if account_number:
+		account_name_in_db = unidecode(" - ".join([account_number,
+			account_name.strip().lower()]))
+	else:
+		account_name_in_db = unidecode(account_name.strip().lower())
+
+	if account_name_in_db in accounts:
+		count = accounts.count(account_name_in_db)
+		account_name = account_name + " " + cstr(count)
+
+	return account_name, account_name_in_db
+
 @frappe.whitelist()
 def build_tree_from_json(chart_template, chart_data=None):
 	''' get chart template from its folder and parse the json to be rendered as tree '''
