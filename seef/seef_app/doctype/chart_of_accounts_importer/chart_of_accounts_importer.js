@@ -43,7 +43,7 @@ frappe.ui.form.on('Chart of Accounts Importer', {
 	company: function (frm) {
 		// validate that no Gl Entry record for the company exists.
 		frappe.call({
-			method: "erpnext.accounts.doctype.chart_of_accounts_importer.chart_of_accounts_importer.validate_company",
+			method: "seef.seef_app.doctype.chart_of_accounts_importer.chart_of_accounts_importer.validate_company",
 			args: {
 				company: frm.doc.company
 			},
