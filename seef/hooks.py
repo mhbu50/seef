@@ -25,6 +25,11 @@ app_include_js = "/assets/js/seef.js"
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
 
+website_context = {
+    "favicon": "/assets/seef/images/seef_logo.jpg",
+    "splash_image": "/assets/seef/images/seef_logo.jpg"
+}
+
 # include js in doctype views
 doctype_js = {"Journal Entry": "public/js/journal_entry.js",
               "Stock Entry": "public/js/stock_entry.js"}

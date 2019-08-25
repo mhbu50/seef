@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import frappe
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 
 from six import iteritems
 import erpnext.accounts.doctype.account.chart_of_accounts.chart_of_accounts
