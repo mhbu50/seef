@@ -9,7 +9,7 @@ def get_data():
 			"color": "grey",
 			"icon": "octicon octicon-file-directory",
 			"type": "module",
-			"label": _("Human Resources"),
+			"label": _("seef App"),
 			"hidden": 1
 		}
 	]
