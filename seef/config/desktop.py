@@ -10,6 +10,6 @@ def get_data():
 			"icon": "octicon octicon-file-directory",
 			"type": "module",
 			"label": _("seef App"),
-			"hidden": 1
+			"hidden": 0
 		}
 	]
