@@ -32,7 +32,8 @@ website_context = {
 
 # include js in doctype views
 doctype_js = {"Journal Entry": "public/js/journal_entry.js",
-              "Stock Entry": "public/js/stock_entry.js"}
+              "Stock Entry": "public/js/stock_entry.js",
+              "Sales Invoice":"public/js/sales_invoice.js"}
 # doctype_list_js = {"Purchase Invoice" : "public/js/purchase_invoice.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
