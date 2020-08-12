@@ -31,8 +31,8 @@
 			<th style="width: 10%">{%= __("Balance") %}</th>
 			<th style="width: 10%">{%= __("Voucher No") %}</th>
 			<th style="width: 10%">{%= __("Cost Center") %}</th>
-			<th style="width: 30%">{%= __("Remarks") %}</th>
-			<th style="width: 10%">{%= __("Voucher Type") %}</th>
+			<th style="width: 20%">{%= __("Remarks") %}</th>
+			<th style="width: 20%">{%= __("Voucher Type") %}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -50,13 +50,13 @@
 				<td style="text-align: right">
 					{%= format_currency(data[i].balance, filters.presentation_currency) %}
 				</td>
-				<td>{%= data[i].voucher_type %}: {%= data[i].voucher_no %}</td>
+				<td>{%= data[i].voucher_no %}</td>
 				<td>{% if(data[i].cost_center) { %}
 					{%= data[i].cost_center %}
 				{% } %}
 				</td>
 				<td>{%= data[i].remarks %}</td>
-				<td>{%= data[i].voucher_type %}: {%= data[i].voucher_type %}</td>
+				<td>{%= data[i].voucher_type %}</td>
 				{% } else { %}
 				<td></td>
 				
