@@ -20,6 +20,10 @@ def _execute(filters=None, additional_table_columns=None, additional_query_colum
 	company_currency = frappe.get_cached_value('Company',  filters.get("company"),  "default_currency")
 
 	item_list = get_items(filters, additional_query_columns)
+	if item_list:
+		itemised_tax, tax_columns = get_tax_accounts(item_list, columns, company_currency)
+
+	columns += [_("Invoice") + ":Link/Sales Invoice:120"]
 
 	data = []
 	for d in item_list:
@@ -49,7 +53,15 @@ def _execute(filters=None, additional_table_columns=None, additional_query_colum
 		else:
 			row += [d.base_net_rate, d.base_net_amount]
 
-		row += [d.parent, d.posting_date]
+		total_tax = 0
+		for tax in tax_columns:
+			item_tax = itemised_tax.get(d.name, {}).get(tax, {})
+			row += [item_tax.get("tax_rate", 0), item_tax.get("tax_amount", 0)]
+			total_tax += flt(item_tax.get("tax_amount"))
+
+		row += [total_tax, d.base_net_amount + total_tax]
+
+		row += [d.parent]
 
 		total_tax = 0
 		data.append(row)
@@ -70,10 +82,7 @@ def get_columns(additional_table_columns):
 		_("Stock Qty") + ":Float:120", 
 		_("Stock UOM") + "::100",
 		_("Rate") + ":Currency/currency:120",
-		_("Amount") + ":Currency/currency:120",
-		_("Invoice") + ":Link/Sales Invoice:120",
-		_("Posting Date") + ":Date:80", 
-
+		_("Amount") + ":Currency/currency:120"
 	]
 
 	return columns

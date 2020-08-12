@@ -14,7 +14,7 @@ def _execute(filters=None, additional_table_columns=None, additional_query_colum
 	if not filters: filters = {}
 	filters.update({"from_date": filters.get("date_range")[0], "to_date": filters.get("date_range")[1]})
 	columns = get_columns(additional_table_columns)
-
+	
 	company_currency = erpnext.get_company_currency(filters.company)
 
 	item_list = get_items(filters, additional_query_columns)
@@ -23,6 +23,7 @@ def _execute(filters=None, additional_table_columns=None, additional_query_colum
 		itemised_tax, tax_columns = get_tax_accounts(item_list, columns, company_currency,
 			doctype="Purchase Invoice", tax_doctype="Purchase Taxes and Charges")
 
+	columns += [_("Invoice") + ":Link/Purchase Invoice:120"]
 
 	po_pr_map = get_purchase_receipts_against_purchase_order(item_list)
 
@@ -38,9 +39,10 @@ def _execute(filters=None, additional_table_columns=None, additional_query_colum
 			purchase_receipt = ", ".join(po_pr_map.get(d.po_detail, []))
 
 		expense_account = d.expense_account or aii_account_map.get(d.company)
-		row = [	d.parent, 
-				d.posting_date, 
-				d.supplier,
+		row = [	
+				# d.parent, 
+				# d.posting_date, 
+				# d.supplier,
 				d.item_code, 
 				d.item_name, 
 				d.cost_center,
@@ -63,8 +65,9 @@ def _execute(filters=None, additional_table_columns=None, additional_query_colum
 			row += [item_tax.get("tax_rate", 0), item_tax.get("tax_amount", 0)]
 			total_tax += flt(item_tax.get("tax_amount"))
 
-		row += [total_tax, d.base_net_amount + total_tax, company_currency]
+		row += [total_tax, d.base_net_amount + total_tax]
 
+		row += [d.parent]
 		data.append(row)
 
 	return columns, data
@@ -72,9 +75,9 @@ def _execute(filters=None, additional_table_columns=None, additional_query_colum
 
 def get_columns(additional_table_columns):
 	columns = [
-		_("Invoice") + ":Link/Purchase Invoice:120",
-		_("Posting Date") + ":Date:80", 
-		_("Supplier") + ":Link/Supplier:120",
+		# _("Invoice") + ":Link/Purchase Invoice:120",
+		# _("Posting Date") + ":Date:80", 
+		# _("Supplier") + ":Link/Supplier:120",
 		_("Item Code") + ":Link/Item:120", 
 		_("Item Name") + "::120",
 		_("Cost Center") + "::120",
