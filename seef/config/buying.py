@@ -10,7 +10,7 @@ def get_data():
 				{
 					"type": "report",
 					"is_query_report": True,
-					"name": "Seef Item-wise Purchase History",
+					"name": "Seef Item-wise Purchase Register",
 					"doctype": "Item"
 				},
             ]
